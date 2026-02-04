@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale-1.0" />
+    <title>Cafe JSR Online Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+<style>
+  @keyframes pulse-once {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+  }
+  .animate-pulse-once {
+    animation: pulse-once 0.7s ease-in-out;
+  }
+
+  @keyframes add-to-cart-effect {
+    50% { 
+      transform: scale(1.05);
+    }
+  }
+  .animate-add-to-cart {
+    animation: add-to-cart-effect 0.4s ease-out;
+  }
+
+  @keyframes bobbing {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+  }
+  .animate-bobbing {
+    animation: bobbing 2s ease-in-out infinite;
+  }
+
+  @keyframes toast-in {
+    from {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes toast-out {
+    from {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+    to {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-toast-in {
+    animation: toast-in 0.5s ease-out forwards;
+  }
+  
+  .animate-toast-out {
+    animation: toast-out 0.5s ease-in forwards;
+  }
+</style>
+</head>
+  <body class="bg-gray-50">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Cafe JSR Online Catalog",
+  "description": "An online product catalog application for Cafe JSR, allowing users to browse products and add them to a shopping cart. Inspired by the provided UI design.",
+  "requestFramePermissions": []
+}
