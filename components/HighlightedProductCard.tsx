@@ -22,13 +22,13 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
     const now = new Date();
     let targetYear = now.getFullYear();
     // Month is 0-indexed, so February is 1
-    const targetDateForThisYear = new Date(targetYear, 1, 5, 23, 59, 59);
+    const targetDateForThisYear = new Date(targetYear, 1, 10, 23, 59, 59);
 
     if (now > targetDateForThisYear) {
       targetYear++;
     }
     
-    const countdownEndTime = new Date(targetYear, 1, 5, 23, 59, 59).getTime();
+    const countdownEndTime = new Date(targetYear, 1, 10, 23, 59, 59).getTime();
 
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
@@ -125,7 +125,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
                 className="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2 font-semibold flex items-center justify-center transition-colors text-sm flex-shrink-0"
                 aria-label={`Add ${product.name} to cart`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                 </svg>
                 <span>Order</span>
