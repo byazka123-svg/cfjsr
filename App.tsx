@@ -7,8 +7,9 @@ import { OrderSidebar } from './components/OrderSidebar';
 import { products } from './constants';
 import type { Product, CartItem, CustomerInfo } from './types';
 import { ShoppingCartIcon } from './components/Icons';
-import { Toast } from './components/Toast';
 import { Modal } from './components/Modal';
+import { AddToCartModal } from './components/AddToCartModal';
+import { ProductDetailModal } from './components/ProductDetailModal';
 
 const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -18,12 +19,16 @@ const App: React.FC = () => {
     address: '',
     postalCode: '',
   });
-  const [toastMessage, setToastMessage] = useState<string>('');
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [selectedBonus, setSelectedBonus] = useState<string>('');
   
   const [isOrderSuccessModalVisible, setIsOrderSuccessModalVisible] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState('');
+
+  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
+  const [isAddToCartModalVisible, setIsAddToCartModalVisible] = useState(false);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -93,7 +98,8 @@ const App: React.FC = () => {
       }
     });
 
-    setToastMessage('Produk ditambahkan ke keranjang');
+    setLastAddedProduct(product);
+    setIsAddToCartModalVisible(true);
 
     if (sidebarRef.current) {
       sidebarRef.current.classList.remove('animate-pulse-once');
@@ -103,6 +109,16 @@ const App: React.FC = () => {
     }
 
   }, []);
+
+  const handleModalContinueShopping = () => {
+    setIsAddToCartModalVisible(false);
+  };
+
+  const handleModalCheckout = () => {
+    setIsAddToCartModalVisible(false);
+    handleScrollToSidebar();
+  };
+
 
   const handleUpdateQuantity = useCallback((productId: number, newQuantity: number) => {
     setCartItems(prevItems => {
@@ -119,6 +135,19 @@ const App: React.FC = () => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   }, []);
 
+  const handleProductCardClick = (product: Product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleCloseDetailModal = () => {
+    setSelectedProduct(null);
+  };
+
+  const handleAddToCartFromDetail = (product: Product) => {
+    handleAddToCart(product);
+    handleCloseDetailModal();
+  };
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -129,7 +158,11 @@ const App: React.FC = () => {
           <Hero />
           <div className="mt-8 grid grid-cols-1 gap-8">
             <div className="lg:col-span-2">
-              <ProductList products={products} onAddToCart={handleAddToCart} />
+              <ProductList 
+                products={products} 
+                onAddToCart={handleAddToCart}
+                onCardClick={handleProductCardClick} 
+              />
             </div>
             <div className="mt-8 lg:mt-0" ref={sidebarRef}>
               <OrderSidebar 
@@ -147,9 +180,17 @@ const App: React.FC = () => {
           </div>
         </main>
         
-        <Toast 
-          message={toastMessage} 
-          onClose={() => setToastMessage('')} 
+        <ProductDetailModal 
+          product={selectedProduct}
+          onClose={handleCloseDetailModal}
+          onAddToCart={handleAddToCartFromDetail}
+        />
+
+        <AddToCartModal 
+            isVisible={isAddToCartModalVisible}
+            product={lastAddedProduct}
+            onClose={handleModalContinueShopping}
+            onCheckout={handleModalCheckout}
         />
 
         <Modal 

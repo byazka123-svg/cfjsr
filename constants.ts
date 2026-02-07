@@ -10,7 +10,6 @@ export const products: Product[] = [
     image: 'https://ik.imagekit.io/hrctvvb3m/Untitled%20design%20(10).png',
     category: 'Wedhang Cafe JSR',
     tag: '1 Box isi 10 Sachet',
-    isHighlight: true,
   },
   {
     id: 1,

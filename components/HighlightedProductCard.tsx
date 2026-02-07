@@ -12,9 +12,10 @@ interface TimeLeft {
 interface HighlightedProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onCardClick: (product: Product) => void;
 }
 
-export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ product, onAddToCart }) => {
+export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ product, onAddToCart, onCardClick }) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -65,7 +66,8 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
     }).format(amount).replace('IDR', 'Rp');
   };
 
-  const handleAddToCartClick = () => {
+  const handleAddToCartClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onAddToCart(product);
     if (cardRef.current) {
       cardRef.current.classList.remove('animate-add-to-cart');
@@ -75,7 +77,11 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
   };
 
   return (
-    <div ref={cardRef} className="bg-amber-50 border-2 border-dashed border-amber-400 rounded-xl shadow-lg p-4 overflow-hidden">
+    <div 
+      ref={cardRef} 
+      className="bg-amber-50 border-2 border-dashed border-amber-400 rounded-xl shadow-lg p-4 overflow-hidden cursor-pointer"
+      onClick={() => onCardClick(product)}
+    >
       <div className="flex gap-4">
         <img className="w-1/3 aspect-square object-cover rounded-lg flex-shrink-0" src={product.image} alt={product.name} />
         <div className="flex flex-col flex-grow">
@@ -125,7 +131,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
                 className="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2 font-semibold flex items-center justify-center transition-colors text-sm flex-shrink-0"
                 aria-label={`Add ${product.name} to cart`}
               >
-                <svg xmlns="http://www.w.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                 </svg>
                 <span>Order</span>

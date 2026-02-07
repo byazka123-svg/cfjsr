@@ -6,9 +6,10 @@ import { StarIcon } from './Icons';
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onCardClick: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onCardClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -20,7 +21,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
     }).format(amount).replace('IDR', 'Rp');
   };
 
-  const handleAddToCartClick = () => {
+  const handleAddToCartClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Mencegah event klik menyebar ke kartu
     onAddToCart(product);
     if (cardRef.current) {
       cardRef.current.classList.remove('animate-add-to-cart');
@@ -30,7 +32,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
   };
 
   return (
-    <div ref={cardRef} className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 flex flex-col">
+    <div 
+      ref={cardRef} 
+      id={`product-${product.id}`}
+      className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 flex flex-col cursor-pointer"
+      onClick={() => onCardClick(product)}
+    >
       <img className="w-full h-40 object-cover" src={product.image} alt={product.name} />
       <div className="p-4 flex flex-col flex-grow">
         {product.isBestSeller && (

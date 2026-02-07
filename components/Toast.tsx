@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
-import { CheckIcon } from './Icons';
+// FIX: Replaced missing CheckIcon with existing CheckBadgeIcon for UI consistency.
+import { CheckBadgeIcon } from './Icons';
 
 interface ToastProps {
   message: string;
@@ -39,7 +39,8 @@ export const Toast: React.FC<ToastProps> = ({ message, duration = 2000, onClose 
     <div
       className={`fixed top-20 left-1/2 bg-gray-800 text-white px-5 py-3 rounded-full shadow-lg flex items-center space-x-3 z-50 ${isExiting ? 'animate-toast-out' : 'animate-toast-in'}`}
     >
-       <CheckIcon className="w-5 h-5 text-green-400" />
+       {/* FIX: Replaced missing CheckIcon with existing CheckBadgeIcon. */}
+       <CheckBadgeIcon className="w-5 h-5 text-green-400" />
        <span className="text-sm font-medium">{message}</span>
     </div>
   );
