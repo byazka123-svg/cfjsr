@@ -3,15 +3,6 @@ import type { Product } from './types';
 
 export const products: Product[] = [
   {
-    id: 10,
-    name: 'Wedhang To Go Varian MIX',
-    description: 'Edisi spesial! Box ini berisi semua varian Wedhang To Go terbaik kami. Rasakan semua manfaatnya dalam satu paket praktis.',
-    price: 100000,
-    image: 'https://ik.imagekit.io/hrctvvb3m/Untitled%20design%20(10).png',
-    category: 'Wedhang Cafe JSR',
-    tag: '1 Box isi 10 Sachet',
-  },
-  {
     id: 1,
     name: 'Snack Plizstop Pedas',
     description: 'Perpaduan gurih dengan sensasi pedas yang bikin nagih.',

@@ -20,16 +20,8 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const now = new Date();
-    let targetYear = now.getFullYear();
-    // Month is 0-indexed, so February is 1
-    const targetDateForThisYear = new Date(targetYear, 1, 10, 23, 59, 59);
-
-    if (now > targetDateForThisYear) {
-      targetYear++;
-    }
-    
-    const countdownEndTime = new Date(targetYear, 1, 10, 23, 59, 59).getTime();
+    // Promo ends on February 18, 2026, at 23:59:59
+    const countdownEndTime = new Date('2026-02-18T23:59:59').getTime();
 
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
@@ -87,8 +79,8 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
         <div className="flex flex-col flex-grow">
           <div>
             <div className="flex flex-wrap gap-2 mb-2">
-              <span className="text-xs font-bold bg-red-500 text-white px-3 py-1 rounded-full">PRODUK SPESIAL</span>
-              <span className="text-xs font-bold bg-gray-700 text-white px-3 py-1 rounded-full">PERSEDIAAN TERBATAS</span>
+              <span className="text-xs font-bold bg-red-500 text-white px-3 py-1 rounded-full">PROMO RAMADHAN</span>
+              <span className="text-xs font-bold bg-gray-700 text-white px-3 py-1 rounded-full">8-18 FEB 2026</span>
             </div>
             <h3 className="text-xl font-extrabold text-gray-800">{product.name}</h3>
             <p className="text-gray-600 text-sm mt-1">{product.description}</p>
@@ -96,7 +88,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
 
           <div className="mt-auto pt-4">
             <div className="bg-white rounded-lg p-3">
-                <p className="text-xs text-center text-gray-700 font-semibold mb-1">Penawaran Berakhir Dalam:</p>
+                <p className="text-xs text-center text-gray-700 font-semibold mb-1">Promo Berakhir Dalam:</p>
                 {timeLeft ? (
                     <div className="flex justify-center items-start gap-2 text-center text-red-600">
                         <div className="flex flex-col items-center">
@@ -120,7 +112,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
                         </div>
                     </div>
                 ) : (
-                    <p className="text-2xl font-bold text-center text-red-600">Waktu Habis!</p>
+                    <p className="text-2xl font-bold text-center text-red-600">Promo Berakhir!</p>
                 )}
             </div>
 

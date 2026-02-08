@@ -1,7 +1,6 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
 import { ProductList } from './components/ProductList';
 import { OrderSidebar } from './components/OrderSidebar';
 import { products } from './constants';
@@ -10,6 +9,7 @@ import { ShoppingCartIcon } from './components/Icons';
 import { Modal } from './components/Modal';
 import { AddToCartModal } from './components/AddToCartModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
+import { RamadanPromoBanner } from './components/RamadanPromoBanner';
 
 const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -155,7 +155,7 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-gray-50 font-sans pb-24 max-w-lg mx-auto shadow-2xl">
         <Header />
         <main className="container mx-auto px-4 py-8">
-          <Hero />
+          <RamadanPromoBanner />
           <div className="mt-8 grid grid-cols-1 gap-8">
             <div className="lg:col-span-2">
               <ProductList 
