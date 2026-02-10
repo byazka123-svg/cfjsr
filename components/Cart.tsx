@@ -70,7 +70,7 @@ Kode Pos: ${customerInfo.postalCode}
                             <div key={item.id} className="flex items-center space-x-4">
                                 <div className="flex-1">
                                     <p className="font-semibold text-gray-800">{item.name}</p>
-                                    <p className="text-sm text-green-700 font-bold">{formatCurrency(item.price)}</p>
+                                    <p className="text-sm text-emerald-800 font-bold">{formatCurrency(item.price)}</p>
                                     <div className="flex items-center mt-2">
                                         <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="p-1 rounded-full text-gray-500 hover:bg-gray-100"><MinusIcon className="w-4 h-4"/></button>
                                         <span className="px-3 text-sm font-bold">{item.quantity}</span>
@@ -90,7 +90,7 @@ Kode Pos: ${customerInfo.postalCode}
                         </div>
                         <button 
                             onClick={handleCheckout}
-                            className="mt-4 w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            className="mt-4 w-full bg-emerald-700 text-white py-3 rounded-lg font-semibold hover:bg-emerald-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                             disabled={!isFormComplete}
                         >
                             Pesan via WhatsApp

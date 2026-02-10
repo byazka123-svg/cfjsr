@@ -24,7 +24,7 @@ export const BenefitTags: React.FC<BenefitTagsProps> = ({ benefits, onBenefitCli
           <button
             key={benefit.productId}
             onClick={() => onBenefitClick(benefit.productId)}
-            className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold hover:bg-amber-200 hover:text-amber-900 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="px-3 py-1 bg-terracotta/10 text-terracotta rounded-full text-xs font-semibold hover:bg-terracotta/20 hover:text-terracotta/90 transition-colors focus:outline-none focus:ring-2 focus:ring-terracotta"
           >
             {benefit.label}
           </button>

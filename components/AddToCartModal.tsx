@@ -1,16 +1,17 @@
 
 import React from 'react';
-import type { Product } from '../types';
-import { CheckBadgeIcon } from './Icons';
+import type { Product, CartItem } from '../types';
+import { CheckBadgeIcon, GiftIcon } from './Icons';
 
 interface AddToCartModalProps {
   isVisible: boolean;
   product: Product | null;
   onClose: () => void;
   onCheckout: () => void;
+  cartItems: CartItem[];
 }
 
-export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, product, onClose, onCheckout }) => {
+export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, product, onClose, onCheckout, cartItems }) => {
   if (!isVisible || !product) return null;
 
   const formatCurrency = (amount: number) => {
@@ -21,6 +22,44 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
       maximumFractionDigits: 0,
     }).format(amount).replace('IDR', 'Rp');
   };
+  
+  const renderPromoMessage = () => {
+    if (product.category !== 'Wedhang Cafe JSR') {
+      return null;
+    }
+
+    const wedhangQuantity = cartItems
+      .filter(item => item.category === 'Wedhang Cafe JSR')
+      .reduce((sum, item) => sum + item.quantity, 0);
+
+    const remainder = wedhangQuantity % 3;
+    let message = null;
+
+    if (remainder === 0) {
+      const totalGifts = wedhangQuantity / 3;
+      message = (
+        <>
+          <strong>Selamat!</strong> Anda berhak mendapatkan{' '}
+          <strong>{totalGifts} bonus gratis (Teko/Tumbler Rempah).</strong> Jangan lupa pilih di keranjang ya!
+        </>
+      );
+    } else {
+      const neededForNextGift = 3 - remainder;
+      message = (
+        <>
+          Tambah <strong>{neededForNextGift} box</strong> Wedhang lagi untuk dapat bonus gratis <strong>Teko/Tumbler Rempah</strong>!
+        </>
+      );
+    }
+
+    return (
+      <div className="mt-4 p-3 bg-green-forest/10 border border-green-forest/20 text-green-forest rounded-lg flex items-center gap-3 text-sm">
+        <GiftIcon className="h-6 w-6 flex-shrink-0" />
+        <p>{message}</p>
+      </div>
+    );
+  };
+
 
   return (
     <div 
@@ -40,16 +79,18 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
           </svg>
         </button>
 
-        <CheckBadgeIcon className="h-12 w-12 text-green-500 mx-auto" />
+        <CheckBadgeIcon className="h-12 w-12 text-green-forest mx-auto" />
         <h3 id="add-to-cart-modal-title" className="text-xl font-bold text-gray-900 mt-2">Berhasil ditambahkan!</h3>
         
         <div className="bg-gray-50 rounded-lg p-4 my-4 flex items-center space-x-4 text-left">
           <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded-md flex-shrink-0" />
           <div>
             <p className="font-semibold text-gray-800">{product.name}</p>
-            <p className="text-sm text-green-700 font-bold">{formatCurrency(product.price)}</p>
+            <p className="text-sm text-green-forest font-bold">{formatCurrency(product.price)}</p>
           </div>
         </div>
+        
+        {renderPromoMessage()}
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
@@ -60,7 +101,7 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
           </button>
           <button
             onClick={onCheckout}
-            className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 order-1 sm:order-2"
+            className="w-full bg-terracotta text-white py-3 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-terracotta order-1 sm:order-2"
           >
             Lanjut Checkout
           </button>

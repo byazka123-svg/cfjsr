@@ -29,6 +29,7 @@ export const products: Product[] = [
     category: 'Wedhang Cafe JSR',
     tag: '1 Box isi 10 Sachet',
     isBestSeller: true,
+    isHighlight: true,
   },
   {
     id: 4,

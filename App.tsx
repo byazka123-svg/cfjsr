@@ -5,11 +5,11 @@ import { ProductList } from './components/ProductList';
 import { OrderSidebar } from './components/OrderSidebar';
 import { products } from './constants';
 import type { Product, CartItem, CustomerInfo } from './types';
-import { ShoppingCartIcon } from './components/Icons';
 import { Modal } from './components/Modal';
 import { AddToCartModal } from './components/AddToCartModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { RamadanPromoBanner } from './components/RamadanPromoBanner';
+import { BottomNavBar } from './components/BottomNavBar';
 
 const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -19,7 +19,6 @@ const App: React.FC = () => {
     address: '',
     postalCode: '',
   });
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [selectedBonus, setSelectedBonus] = useState<string>('');
   
   const [isOrderSuccessModalVisible, setIsOrderSuccessModalVisible] = useState(false);
@@ -30,7 +29,10 @@ const App: React.FC = () => {
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  const [activeTab, setActiveTab] = useState('home');
+  
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const promoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wedhangQuantity = cartItems
@@ -41,30 +43,6 @@ const App: React.FC = () => {
         setSelectedBonus('');
     }
   }, [cartItems]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSidebarVisible(entry.isIntersecting);
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1, // Trigger when 10% of the sidebar is visible
-      }
-    );
-
-    const currentSidebar = sidebarRef.current;
-    if (currentSidebar) {
-      observer.observe(currentSidebar);
-    }
-
-    return () => {
-      if (currentSidebar) {
-        observer.unobserve(currentSidebar);
-      }
-    };
-  }, []);
   
   const handleContinueToWhatsapp = () => {
     if (whatsappUrl) {
@@ -84,6 +62,18 @@ const App: React.FC = () => {
 
   const handleScrollToSidebar = () => {
     sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActiveTab('cart');
+  };
+
+  const handleNavigate = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === 'promo') {
+      promoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (tab === 'cart') {
+      sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (tab === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleAddToCart = useCallback((product: Product) => {
@@ -151,11 +141,14 @@ const App: React.FC = () => {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gray-200 font-sans">
-      <div className="min-h-screen bg-gray-50 font-sans pb-24 max-w-lg mx-auto shadow-2xl">
+    <div className="min-h-screen bg-stone-200 font-sans">
+      <div className="min-h-screen bg-stone-100 font-sans pb-24 max-w-lg mx-auto shadow-2xl">
         <Header />
+        
         <main className="container mx-auto px-4 py-8">
-          <RamadanPromoBanner />
+          <div ref={promoRef}>
+            <RamadanPromoBanner />
+          </div>
           <div className="mt-8 grid grid-cols-1 gap-8">
             <div className="lg:col-span-2">
               <ProductList 
@@ -191,6 +184,7 @@ const App: React.FC = () => {
             product={lastAddedProduct}
             onClose={handleModalContinueShopping}
             onCheckout={handleModalCheckout}
+            cartItems={cartItems}
         />
 
         <Modal 
@@ -202,26 +196,11 @@ const App: React.FC = () => {
           confirmText="Lanjutkan ke WhatsApp"
         />
 
-        {cartItems.length > 0 && (
-          <div className={`
-            fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg bg-white p-4 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-20 
-            transition-transform duration-500 ease-in-out
-            ${isSidebarVisible ? 'translate-y-full' : 'translate-y-0'}
-          `}>
-            <div className="container mx-auto">
-              <button
-                onClick={handleScrollToSidebar}
-                className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors text-lg flex items-center justify-center relative animate-bobbing"
-              >
-                <ShoppingCartIcon className="h-6 w-6 mr-3" />
-                <span>Segera Lengkapi Pesanan</span>
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 bg-white text-orange-500 text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
+        <BottomNavBar 
+          activeTab={activeTab}
+          onNavigate={handleNavigate}
+          cartItemCount={totalItems}
+        />
       </div>
     </div>
   );

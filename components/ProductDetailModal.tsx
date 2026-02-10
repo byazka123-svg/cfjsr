@@ -52,16 +52,16 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
         <div className="overflow-y-auto p-6">
             <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg mb-4" />
             
-            <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">{product.tag}</span>
+            <span className="bg-green-forest/10 text-green-forest text-xs font-medium px-2.5 py-0.5 rounded-full">{product.tag}</span>
             <h2 className="text-3xl font-extrabold text-gray-900 mt-2">{product.name}</h2>
             <p className="text-gray-600 mt-2 text-base">{product.description}</p>
         </div>
 
         <div className="p-6 mt-auto bg-gray-50 border-t rounded-b-2xl flex items-center justify-between gap-4">
-            <p className="text-3xl font-bold text-green-700">{formatCurrency(product.price)}</p>
+            <p className="text-3xl font-bold text-green-forest">{formatCurrency(product.price)}</p>
             <button
               onClick={() => onAddToCart(product)}
-              className="bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors flex items-center gap-2 text-lg"
+              className="bg-terracotta text-white py-3 px-6 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors flex items-center gap-2 text-lg"
             >
               <ShoppingCartIcon className="h-5 w-5"/>
               <span>Tambah</span>

@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Product } from '../types';
 import { ProductCard } from './ProductCard';
-import { HighlightedProductCard } from './HighlightedProductCard';
+// import { HighlightedProductCard } from './HighlightedProductCard'; // No longer used
 import { BenefitTags } from './BenefitTags';
 
 interface ProductListProps {
@@ -19,10 +19,8 @@ const categoryDescriptions: Record<string, string> = {
 const categoryOrder = ['Snack Plizstop', 'Wedhang Cafe JSR'];
 
 export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart, onCardClick }) => {
-  const highlightedProduct = products.find(p => p.isHighlight);
-  const regularProducts = products.filter(p => !p.isHighlight);
-
-  const groupedProducts = regularProducts.reduce((acc, product) => {
+  // Simplified logic to render all products within their categories
+  const groupedProducts = products.reduce((acc, product) => {
     (acc[product.category] = acc[product.category] || []).push(product);
     return acc;
   }, {} as Record<string, Product[]>);
@@ -40,11 +38,8 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
 
   return (
     <div className="space-y-12">
-      {highlightedProduct && (
-        <section className="mb-12">
-          <HighlightedProductCard product={highlightedProduct} onAddToCart={onAddToCart} onCardClick={onCardClick} />
-        </section>
-      )}
+      {/* Highlighted product section removed for simplification to fix rendering issue */}
+      {/* The highlighted product will now appear within its category below */}
 
       {categoryOrder.map((category) => {
         const items = groupedProducts[category];
@@ -69,7 +64,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
             )}
 
             <div className="mt-4 inline-block">
-               <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">{items[0].tag}</span>
+               <span className="bg-green-forest/10 text-green-forest text-sm font-medium px-3 py-1 rounded-full">{items[0].tag}</span>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-4">
               {items.map(product => (

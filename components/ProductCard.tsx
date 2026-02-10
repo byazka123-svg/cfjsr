@@ -49,10 +49,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
         <h3 className="text-lg font-bold text-gray-800">{product.name}</h3>
         <p className="text-gray-600 text-sm mt-1 flex-grow">{product.description}</p>
         <div className="mt-4 flex justify-between items-center">
-          <p className="text-lg font-bold text-green-700">{formatCurrency(product.price)}</p>
+          <p className="text-lg font-bold text-green-forest">{formatCurrency(product.price)}</p>
           <button
             onClick={handleAddToCartClick}
-            className="bg-green-600 hover:bg-green-700 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+            className="bg-green-forest hover:bg-green-forest/90 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
             aria-label={`Add ${product.name} to cart`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

@@ -32,7 +32,7 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, onConfirm, onClose, tit
           </svg>
         </button>
 
-        <CheckBadgeIcon className="h-16 w-16 text-green-500 mx-auto mb-4" />
+        <CheckBadgeIcon className="h-16 w-16 text-green-forest mx-auto mb-4" />
 
         <h3 id="modal-title" className="text-2xl font-bold text-gray-900">{title}</h3>
         <p className="mt-2 text-gray-600">{message}</p>
@@ -40,7 +40,7 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, onConfirm, onClose, tit
         <div className="mt-6">
           <button
             onClick={onConfirm}
-            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            className="w-full bg-green-forest text-white py-3 rounded-lg font-semibold hover:bg-green-forest/90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-forest"
           >
             {confirmText}
           </button>

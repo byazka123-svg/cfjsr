@@ -152,13 +152,13 @@ Kode Pos: ${customerInfo.postalCode}
                             <div key={item.id} className="flex items-center space-x-4">
                                 <div className="flex-1">
                                     <p className="font-semibold text-gray-800">{item.name}</p>
-                                    <p className="text-sm text-green-700 font-bold">{formatCurrency(item.price)}</p>
+                                    <p className="text-sm text-green-forest font-bold">{formatCurrency(item.price)}</p>
                                     <div className="flex items-center mt-2 border border-gray-200 rounded-full w-fit">
                                         <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="p-1.5 text-gray-600 hover:text-red-500 rounded-l-full hover:bg-gray-50" aria-label="Kurangi jumlah">
                                             <MinusIcon className="w-4 h-4"/>
                                         </button>
                                         <span className="px-4 text-sm font-bold text-gray-800 tabular-nums w-10 text-center">{item.quantity}</span>
-                                        <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="p-1.5 text-gray-600 hover:text-green-600 rounded-r-full hover:bg-gray-50" aria-label="Tambah jumlah">
+                                        <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="p-1.5 text-gray-600 hover:text-green-forest rounded-r-full hover:bg-gray-50" aria-label="Tambah jumlah">
                                             <PlusIcon className="w-4 h-4"/>
                                         </button>
                                     </div>
@@ -173,15 +173,15 @@ Kode Pos: ${customerInfo.postalCode}
                     <div className="border-t border-gray-200 mt-6 pt-4">
                         {/* Promo section */}
                         {wedhangQuantity > 0 && (
-                            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg p-3 text-sm mb-4">
+                            <div className="bg-green-forest/10 border border-green-forest/20 text-green-forest/90 rounded-lg p-3 text-sm mb-4">
                                 <div className="flex items-start">
                                     <GiftIcon className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
                                     <div>
                                         <p className="font-bold">Promo Spesial Wedhang!</p>
                                         <p>Beli 3 box gratis 1 teko/tumbler (berlaku kelipatan).</p>
                                         {freeGifts > 0 && <p className="mt-1 font-semibold">Anda akan mendapatkan <span className="underline">{freeGifts} bonus</span>!</p>}
-                                        {neededForNextGift !== 3 && <p className="mt-1 font-semibold text-orange-600">Tambah {neededForNextGift} box lagi untuk dapat bonus berikutnya!</p>}
-                                        <p className="text-xs mt-2 text-emerald-700">(Bonus dikirim random jika tidak dipilih)</p>
+                                        {neededForNextGift !== 3 && <p className="mt-1 font-semibold text-terracotta">Tambah {neededForNextGift} box lagi untuk dapat bonus berikutnya!</p>}
+                                        <p className="text-xs mt-2 text-green-forest/80">(Bonus dikirim random jika tidak dipilih)</p>
 
                                         {freeGifts > 0 && (
                                             <div className="mt-3">
@@ -189,13 +189,13 @@ Kode Pos: ${customerInfo.postalCode}
                                                 <div className="flex flex-col sm:flex-row gap-2">
                                                     <button 
                                                         onClick={() => setSelectedBonus('Teko')}
-                                                        className={`w-full text-left p-2 rounded-md border text-xs transition-colors ${selectedBonus === 'Teko' ? 'bg-emerald-600 text-white border-emerald-600 font-bold' : 'bg-white hover:bg-emerald-100 border-emerald-300'}`}
+                                                        className={`w-full text-left p-2 rounded-md border text-xs transition-colors ${selectedBonus === 'Teko' ? 'bg-green-forest text-white border-green-forest font-bold' : 'bg-white hover:bg-green-forest/10 border-green-forest/30'}`}
                                                     >
                                                         Teko Rempah
                                                     </button>
                                                     <button 
                                                         onClick={() => setSelectedBonus('Tumbler')}
-                                                        className={`w-full text-left p-2 rounded-md border text-xs transition-colors ${selectedBonus === 'Tumbler' ? 'bg-emerald-600 text-white border-emerald-600 font-bold' : 'bg-white hover:bg-emerald-100 border-emerald-300'}`}
+                                                        className={`w-full text-left p-2 rounded-md border text-xs transition-colors ${selectedBonus === 'Tumbler' ? 'bg-green-forest text-white border-green-forest font-bold' : 'bg-white hover:bg-green-forest/10 border-green-forest/30'}`}
                                                     >
                                                         Tumbler Rempah
                                                     </button>
@@ -225,7 +225,7 @@ Kode Pos: ${customerInfo.postalCode}
                                 name="name"
                                 value={customerInfo.name}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-900"
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan nama lengkap Anda"
                                 required
                               />
@@ -238,7 +238,7 @@ Kode Pos: ${customerInfo.postalCode}
                                 name="phone"
                                 value={customerInfo.phone}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-900"
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Contoh: 081234567890"
                                 required
                               />
@@ -251,7 +251,7 @@ Kode Pos: ${customerInfo.postalCode}
                                 rows={3}
                                 value={customerInfo.address}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-900"
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, dan kota/kabupaten"
                                 required
                               />
@@ -264,7 +264,7 @@ Kode Pos: ${customerInfo.postalCode}
                                 name="postalCode"
                                 value={customerInfo.postalCode}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm text-gray-900"
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan kode pos"
                                 required
                               />
@@ -276,7 +276,7 @@ Kode Pos: ${customerInfo.postalCode}
                     <div className="mt-6">
                          <button 
                             onClick={handleCheckout}
-                            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                            className="w-full bg-green-forest text-white py-3 rounded-lg font-semibold hover:bg-green-forest/90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                             disabled={!isFormComplete || isBonusSelectionMissing || isLoading}
                         >
                             {isLoading ? (

@@ -71,7 +71,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
   return (
     <div 
       ref={cardRef} 
-      className="bg-amber-50 border-2 border-dashed border-amber-400 rounded-xl shadow-lg p-4 overflow-hidden cursor-pointer"
+      className="bg-terracotta/5 border-2 border-dashed border-terracotta/40 rounded-xl shadow-lg p-4 overflow-hidden cursor-pointer"
       onClick={() => onCardClick(product)}
     >
       <div className="flex gap-4">
@@ -79,7 +79,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
         <div className="flex flex-col flex-grow">
           <div>
             <div className="flex flex-wrap gap-2 mb-2">
-              <span className="text-xs font-bold bg-red-500 text-white px-3 py-1 rounded-full">PROMO RAMADHAN</span>
+              <span className="text-xs font-bold bg-terracotta text-white px-3 py-1 rounded-full">PROMO RAMADHAN</span>
               <span className="text-xs font-bold bg-gray-700 text-white px-3 py-1 rounded-full">8-18 FEB 2026</span>
             </div>
             <h3 className="text-xl font-extrabold text-gray-800">{product.name}</h3>
@@ -117,10 +117,10 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
             </div>
 
             <div className="mt-3 flex justify-between items-center gap-2">
-              <p className="text-2xl font-bold text-green-700">{formatCurrency(product.price)}</p>
+              <p className="text-2xl font-bold text-green-forest">{formatCurrency(product.price)}</p>
               <button
                 onClick={handleAddToCartClick}
-                className="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2 font-semibold flex items-center justify-center transition-colors text-sm flex-shrink-0"
+                className="bg-green-forest hover:bg-green-forest/90 text-white rounded-lg px-4 py-2 font-semibold flex items-center justify-center transition-colors text-sm flex-shrink-0"
                 aria-label={`Add ${product.name} to cart`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
