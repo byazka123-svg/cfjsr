@@ -95,7 +95,7 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <button
             onClick={onClose}
-            className="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 order-2 sm:order-1"
+            className="w-full bg-green-forest text-white py-3 rounded-lg font-semibold hover:bg-green-forest/90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-forest order-2 sm:order-1"
           >
             Lanjut Belanja
           </button>
