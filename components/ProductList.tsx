@@ -8,7 +8,6 @@ import { BenefitTags } from './BenefitTags';
 interface ProductListProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
-  onCardClick: (product: Product) => void;
 }
 
 const categoryDescriptions: Record<string, string> = {
@@ -18,7 +17,7 @@ const categoryDescriptions: Record<string, string> = {
 
 const categoryOrder = ['Snack Plizstop', 'Wedhang Cafe JSR'];
 
-export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart, onCardClick }) => {
+export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart }) => {
   // Find the special offer product
   const specialOfferProduct = products.find(p => p.isSpecialOffer);
   // Filter out the special offer product for normal listing
@@ -51,7 +50,6 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
             <SpecialOfferCard 
               product={specialOfferProduct}
               onAddToCart={onAddToCart}
-              onCardClick={onCardClick}
             />
           </div>
         </section>
@@ -85,7 +83,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
             </div>
             <div className="mt-6 grid grid-cols-2 gap-4">
               {items.map(product => (
-                <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} onCardClick={onCardClick} />
+                <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
               ))}
             </div>
           </section>

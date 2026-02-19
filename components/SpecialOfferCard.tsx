@@ -1,14 +1,14 @@
 
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 
 interface SpecialOfferCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
-  onCardClick: (product: Product) => void;
 }
 
-export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onAddToCart, onCardClick }) => {
+export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onAddToCart }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -21,6 +21,7 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
   };
 
   const handleAddToCartClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent Link navigation
     e.stopPropagation();
     onAddToCart(product);
     if (cardRef.current) {
@@ -31,10 +32,10 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
   };
 
   return (
-    <div 
+    <Link
+      to={`/product/${product.id}`}
       ref={cardRef}
-      className="bg-gradient-to-br from-green-forest/5 via-stone-50 to-terracotta/5 rounded-2xl shadow-lg p-4 border-2 border-green-forest/20 cursor-pointer animate-shimmer"
-      onClick={() => onCardClick(product)}
+      className="block bg-gradient-to-br from-green-forest/5 via-stone-50 to-terracotta/5 rounded-2xl shadow-lg p-4 border-2 border-green-forest/20 cursor-pointer animate-shimmer"
     >
       <div className="flex flex-col sm:flex-row gap-5">
         <img className="w-full sm:w-2/5 aspect-square object-cover rounded-xl flex-shrink-0" src={product.image} alt={product.name} />
@@ -65,6 +66,6 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

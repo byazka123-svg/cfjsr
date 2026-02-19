@@ -1,5 +1,6 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ProductList } from './components/ProductList';
 import { OrderSidebar } from './components/OrderSidebar';
@@ -10,8 +11,10 @@ import { AddToCartModal } from './components/AddToCartModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { RamadanPromoBanner } from './components/RamadanPromoBanner';
 import { BottomNavBar } from './components/BottomNavBar';
+import { Hero } from './components/Hero';
+import { Ribbon } from './components/Ribbon';
 
-const App: React.FC = () => {
+const MainContent: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     name: '',
@@ -26,13 +29,21 @@ const App: React.FC = () => {
 
   const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
   const [isAddToCartModalVisible, setIsAddToCartModalVisible] = useState(false);
-
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  
   const [activeTab, setActiveTab] = useState('home');
   
   const sidebarRef = useRef<HTMLDivElement>(null);
   const promoRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+  const { id: productId } = useParams<{ id: string }>();
+
+  const selectedProduct = productId ? products.find(p => p.id.toString() === productId) : null;
+  const isDetailModalVisible = !!selectedProduct;
+
+  const handleCloseDetail = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     const wedhangQuantity = cartItems
@@ -50,7 +61,6 @@ const App: React.FC = () => {
     }
     setIsOrderSuccessModalVisible(false);
     setWhatsappUrl('');
-    // Clear cart and customer info
     setCartItems([]);
     setCustomerInfo({
       name: '',
@@ -73,6 +83,7 @@ const App: React.FC = () => {
       sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else if (tab === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate('/');
     }
   };
 
@@ -93,12 +104,15 @@ const App: React.FC = () => {
 
     if (sidebarRef.current) {
       sidebarRef.current.classList.remove('animate-pulse-once');
-      // A trick to re-trigger the animation
       void sidebarRef.current.offsetWidth; 
       sidebarRef.current.classList.add('animate-pulse-once');
     }
-
   }, []);
+
+  const handleAddToCartAndCloseDetail = (product: Product) => {
+    handleAddToCart(product);
+    handleCloseDetail();
+  };
 
   const handleModalContinueShopping = () => {
     setIsAddToCartModalVisible(false);
@@ -108,7 +122,6 @@ const App: React.FC = () => {
     setIsAddToCartModalVisible(false);
     handleScrollToSidebar();
   };
-
 
   const handleUpdateQuantity = useCallback((productId: number, newQuantity: number) => {
     setCartItems(prevItems => {
@@ -125,19 +138,6 @@ const App: React.FC = () => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   }, []);
 
-  const handleProductCardClick = (product: Product) => {
-    setSelectedProduct(product);
-  };
-
-  const handleCloseDetailModal = () => {
-    setSelectedProduct(null);
-  };
-
-  const handleAddToCartFromDetail = (product: Product) => {
-    handleAddToCart(product);
-    handleCloseDetailModal();
-  };
-
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -147,8 +147,9 @@ const App: React.FC = () => {
         
         <main className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
-            {/* Main Content Column */}
             <div className="lg:col-span-2">
+              <Hero />
+              <Ribbon />
               <div ref={promoRef}>
                 <RamadanPromoBanner />
               </div>
@@ -156,11 +157,9 @@ const App: React.FC = () => {
                 <ProductList 
                   products={products} 
                   onAddToCart={handleAddToCart}
-                  onCardClick={handleProductCardClick} 
                 />
               </div>
             </div>
-            {/* Sidebar Column */}
             <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
               <OrderSidebar 
                 items={cartItems} 
@@ -177,12 +176,19 @@ const App: React.FC = () => {
           </div>
         </main>
         
-        <ProductDetailModal 
-          product={selectedProduct}
-          onClose={handleCloseDetailModal}
-          onAddToCart={handleAddToCartFromDetail}
+        <BottomNavBar 
+          activeTab={activeTab}
+          onNavigate={handleNavigate}
+          cartItemCount={totalItems}
         />
-
+        
+        <ProductDetailModal 
+            isVisible={isDetailModalVisible}
+            product={selectedProduct}
+            onClose={handleCloseDetail}
+            onAddToCart={handleAddToCartAndCloseDetail}
+        />
+        
         <AddToCartModal 
             isVisible={isAddToCartModalVisible}
             product={lastAddedProduct}
@@ -199,15 +205,18 @@ const App: React.FC = () => {
           message="Data pesanan Anda telah kami terima. Silakan lanjutkan ke WhatsApp untuk konfirmasi dengan admin kami."
           confirmText="Lanjutkan ke WhatsApp"
         />
-
-        <BottomNavBar 
-          activeTab={activeTab}
-          onNavigate={handleNavigate}
-          cartItemCount={totalItems}
-        />
       </div>
     </div>
   );
+};
+
+const App: React.FC = () => {
+    return (
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/product/:id" element={<MainContent />} />
+      </Routes>
+    );
 };
 
 export default App;
