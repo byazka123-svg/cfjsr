@@ -3,6 +3,17 @@ import type { Product } from './types';
 
 export const products: Product[] = [
   {
+    id: 10,
+    name: 'Paket Buket Hamper Ramadhan & Lebaran',
+    description: 'Terdiri dari 10 wedhang, termasuk box, kartu ucapan, dan dekorasi cantik untuk orang tersayang.',
+    price: 185000,
+    originalPrice: 200000,
+    image: 'https://ik.imagekit.io/hrctvvb3m/Untitled%20design%20(15).png',
+    category: 'Paket Spesial',
+    tag: 'Edisi Terbatas',
+    isSpecialOffer: true,
+  },
+  {
     id: 1,
     name: 'Snack Plizstop Pedas',
     description: 'Perpaduan gurih dengan sensasi pedas yang bikin nagih.',

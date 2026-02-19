@@ -28,7 +28,7 @@ export const RamadanPromoBanner: React.FC = () => {
         {/* Promo Period */}
         <div className="mt-4 bg-terracotta/10 border border-terracotta/20 text-terracotta rounded-lg px-3 py-1.5 text-center w-fit">
           <p className="text-xs font-bold uppercase tracking-wider">
-            Periode: <span className="font-black">8 - 18 FEBRUARI 2026</span>
+            Periode: <span className="font-black">19 FEB - 1 MARET 2026</span>
           </p>
         </div>
       </div>

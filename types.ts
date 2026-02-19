@@ -4,11 +4,13 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  originalPrice?: number;
   image: string;
   category: string;
   tag: string;
   isBestSeller?: boolean;
   isHighlight?: boolean;
+  isSpecialOffer?: boolean;
 }
 
 export interface CartItem extends Product {

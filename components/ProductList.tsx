@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Product } from '../types';
 import { ProductCard } from './ProductCard';
-// import { HighlightedProductCard } from './HighlightedProductCard'; // No longer used
+import { SpecialOfferCard } from './SpecialOfferCard';
 import { BenefitTags } from './BenefitTags';
 
 interface ProductListProps {
@@ -19,8 +19,12 @@ const categoryDescriptions: Record<string, string> = {
 const categoryOrder = ['Snack Plizstop', 'Wedhang Cafe JSR'];
 
 export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart, onCardClick }) => {
-  // Simplified logic to render all products within their categories
-  const groupedProducts = products.reduce((acc, product) => {
+  // Find the special offer product
+  const specialOfferProduct = products.find(p => p.isSpecialOffer);
+  // Filter out the special offer product for normal listing
+  const regularProducts = products.filter(p => !p.isSpecialOffer);
+
+  const groupedProducts = regularProducts.reduce((acc, product) => {
     (acc[product.category] = acc[product.category] || []).push(product);
     return acc;
   }, {} as Record<string, Product[]>);
@@ -38,8 +42,21 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
 
   return (
     <div className="space-y-12">
-      {/* Highlighted product section removed for simplification to fix rendering issue */}
-      {/* The highlighted product will now appear within its category below */}
+      {/* Render the special offer card at the top */}
+      {specialOfferProduct && (
+        <section>
+          <h2 className="text-3xl font-bold text-gray-800">Penawaran Spesial</h2>
+          <p className="mt-2 text-gray-600">Jangan lewatkan paket spesial Ramadhan & Lebaran kami!</p>
+          <div className="mt-6">
+            <SpecialOfferCard 
+              product={specialOfferProduct}
+              onAddToCart={onAddToCart}
+              onCardClick={onCardClick}
+            />
+          </div>
+        </section>
+      )}
+
 
       {categoryOrder.map((category) => {
         const items = groupedProducts[category];

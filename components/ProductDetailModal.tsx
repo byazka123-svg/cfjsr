@@ -58,10 +58,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
         </div>
 
         <div className="p-6 mt-auto bg-gray-50 border-t rounded-b-2xl flex items-center justify-between gap-4">
-            <p className="text-3xl font-bold text-green-forest">{formatCurrency(product.price)}</p>
+            <div className="flex items-baseline gap-2">
+                <p className="text-3xl font-bold text-green-forest">{formatCurrency(product.price)}</p>
+                {product.originalPrice && (
+                    <p className="text-xl font-medium text-gray-500 line-through">{formatCurrency(product.originalPrice)}</p>
+                )}
+            </div>
             <button
               onClick={() => onAddToCart(product)}
-              className="bg-terracotta text-white py-3 px-6 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors flex items-center gap-2 text-lg"
+              className="bg-terracotta text-white py-3 px-6 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors flex items-center gap-2 text-lg flex-shrink-0"
             >
               <ShoppingCartIcon className="h-5 w-5"/>
               <span>Tambah</span>

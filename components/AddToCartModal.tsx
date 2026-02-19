@@ -86,7 +86,12 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
           <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded-md flex-shrink-0" />
           <div>
             <p className="font-semibold text-gray-800">{product.name}</p>
-            <p className="text-sm text-green-forest font-bold">{formatCurrency(product.price)}</p>
+            <div className="flex items-baseline gap-2">
+              <p className="text-sm text-green-forest font-bold">{formatCurrency(product.price)}</p>
+              {product.originalPrice && (
+                <p className="text-xs text-gray-400 line-through">{formatCurrency(product.originalPrice)}</p>
+              )}
+            </div>
           </div>
         </div>
         

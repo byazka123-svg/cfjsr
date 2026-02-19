@@ -20,8 +20,8 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Promo ends on February 18, 2026, at 23:59:59
-    const countdownEndTime = new Date('2026-02-18T23:59:59').getTime();
+    // Promo ends on March 1, 2026, at 23:59:59
+    const countdownEndTime = new Date('2026-03-01T23:59:59').getTime();
 
     const interval = setInterval(() => {
       const currentTime = new Date().getTime();
@@ -80,7 +80,7 @@ export const HighlightedProductCard: React.FC<HighlightedProductCardProps> = ({ 
           <div>
             <div className="flex flex-wrap gap-2 mb-2">
               <span className="text-xs font-bold bg-terracotta text-white px-3 py-1 rounded-full">PROMO RAMADHAN</span>
-              <span className="text-xs font-bold bg-gray-700 text-white px-3 py-1 rounded-full">8-18 FEB 2026</span>
+              <span className="text-xs font-bold bg-gray-700 text-white px-3 py-1 rounded-full">19 FEB - 1 MAR 2026</span>
             </div>
             <h3 className="text-xl font-extrabold text-gray-800">{product.name}</h3>
             <p className="text-gray-600 text-sm mt-1">{product.description}</p>

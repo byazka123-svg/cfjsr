@@ -142,22 +142,26 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-stone-200 font-sans">
-      <div className="min-h-screen bg-stone-100 font-sans pb-24 max-w-lg mx-auto shadow-2xl">
+      <div className="min-h-screen bg-stone-100 font-sans pb-24 lg:pb-0 max-w-7xl mx-auto shadow-2xl">
         <Header />
         
         <main className="container mx-auto px-4 py-8">
-          <div ref={promoRef}>
-            <RamadanPromoBanner />
-          </div>
-          <div className="mt-8 grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
+            {/* Main Content Column */}
             <div className="lg:col-span-2">
-              <ProductList 
-                products={products} 
-                onAddToCart={handleAddToCart}
-                onCardClick={handleProductCardClick} 
-              />
+              <div ref={promoRef}>
+                <RamadanPromoBanner />
+              </div>
+              <div className="mt-8">
+                <ProductList 
+                  products={products} 
+                  onAddToCart={handleAddToCart}
+                  onCardClick={handleProductCardClick} 
+                />
+              </div>
             </div>
-            <div className="mt-8 lg:mt-0" ref={sidebarRef}>
+            {/* Sidebar Column */}
+            <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
               <OrderSidebar 
                 items={cartItems} 
                 onUpdateQuantity={handleUpdateQuantity} 

@@ -152,7 +152,12 @@ Kode Pos: ${customerInfo.postalCode}
                             <div key={item.id} className="flex items-center space-x-4">
                                 <div className="flex-1">
                                     <p className="font-semibold text-gray-800">{item.name}</p>
-                                    <p className="text-sm text-green-forest font-bold">{formatCurrency(item.price)}</p>
+                                    <div className="flex items-baseline gap-2">
+                                        <p className="text-sm text-green-forest font-bold">{formatCurrency(item.price)}</p>
+                                        {item.originalPrice && (
+                                            <p className="text-xs text-gray-400 line-through">{formatCurrency(item.originalPrice)}</p>
+                                        )}
+                                    </div>
                                     <div className="flex items-center mt-2 border border-gray-200 rounded-full w-fit">
                                         <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="p-1.5 text-gray-600 hover:text-red-500 rounded-l-full hover:bg-gray-50" aria-label="Kurangi jumlah">
                                             <MinusIcon className="w-4 h-4"/>
