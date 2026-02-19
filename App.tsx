@@ -1,6 +1,5 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ProductList } from './components/ProductList';
 import { OrderSidebar } from './components/OrderSidebar';
@@ -14,7 +13,7 @@ import { BottomNavBar } from './components/BottomNavBar';
 import { Hero } from './components/Hero';
 import { Ribbon } from './components/Ribbon';
 
-const MainContent: React.FC = () => {
+const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     name: '',
@@ -30,20 +29,13 @@ const MainContent: React.FC = () => {
   const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
   const [isAddToCartModalVisible, setIsAddToCartModalVisible] = useState(false);
   
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+
   const [activeTab, setActiveTab] = useState('home');
   
   const sidebarRef = useRef<HTMLDivElement>(null);
   const promoRef = useRef<HTMLDivElement>(null);
-
-  const navigate = useNavigate();
-  const { id: productId } = useParams<{ id: string }>();
-
-  const selectedProduct = productId ? products.find(p => p.id.toString() === productId) : null;
-  const isDetailModalVisible = !!selectedProduct;
-
-  const handleCloseDetail = () => {
-    navigate('/');
-  };
 
   useEffect(() => {
     const wedhangQuantity = cartItems
@@ -54,6 +46,16 @@ const MainContent: React.FC = () => {
         setSelectedBonus('');
     }
   }, [cartItems]);
+
+  const handleShowDetail = (product: Product) => {
+    setSelectedProduct(product);
+    setIsDetailModalVisible(true);
+  };
+
+  const handleCloseDetail = () => {
+    setIsDetailModalVisible(false);
+    setSelectedProduct(null);
+  };
   
   const handleContinueToWhatsapp = () => {
     if (whatsappUrl) {
@@ -61,6 +63,7 @@ const MainContent: React.FC = () => {
     }
     setIsOrderSuccessModalVisible(false);
     setWhatsappUrl('');
+    // Clear cart and customer info
     setCartItems([]);
     setCustomerInfo({
       name: '',
@@ -83,7 +86,6 @@ const MainContent: React.FC = () => {
       sidebarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else if (tab === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      navigate('/');
     }
   };
 
@@ -123,6 +125,7 @@ const MainContent: React.FC = () => {
     handleScrollToSidebar();
   };
 
+
   const handleUpdateQuantity = useCallback((productId: number, newQuantity: number) => {
     setCartItems(prevItems => {
       if (newQuantity <= 0) {
@@ -140,47 +143,51 @@ const MainContent: React.FC = () => {
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  const MainLayout: React.FC = () => (
+    <main className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
+        <div className="lg:col-span-2">
+          <Hero />
+          <Ribbon />
+          <div ref={promoRef}>
+            <RamadanPromoBanner />
+          </div>
+          <div className="mt-8">
+            <ProductList 
+              products={products} 
+              onAddToCart={handleAddToCart}
+              onShowDetail={handleShowDetail}
+            />
+          </div>
+        </div>
+        <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
+          <OrderSidebar 
+            items={cartItems} 
+            onUpdateQuantity={handleUpdateQuantity} 
+            onRemoveFromCart={handleRemoveFromCart} 
+            customerInfo={customerInfo}
+            setCustomerInfo={setCustomerInfo}
+            selectedBonus={selectedBonus}
+            setSelectedBonus={setSelectedBonus}
+            setIsOrderSuccessModalVisible={setIsOrderSuccessModalVisible}
+            setWhatsappUrl={setWhatsappUrl}
+          />
+        </div>
+      </div>
+      <BottomNavBar 
+        activeTab={activeTab}
+        onNavigate={handleNavigate}
+        cartItemCount={totalItems}
+      />
+    </main>
+  );
+
   return (
     <div className="min-h-screen bg-stone-200 font-sans">
       <div className="min-h-screen bg-stone-100 font-sans pb-24 lg:pb-0 max-w-7xl mx-auto shadow-2xl">
         <Header />
         
-        <main className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
-            <div className="lg:col-span-2">
-              <Hero />
-              <Ribbon />
-              <div ref={promoRef}>
-                <RamadanPromoBanner />
-              </div>
-              <div className="mt-8">
-                <ProductList 
-                  products={products} 
-                  onAddToCart={handleAddToCart}
-                />
-              </div>
-            </div>
-            <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
-              <OrderSidebar 
-                items={cartItems} 
-                onUpdateQuantity={handleUpdateQuantity} 
-                onRemoveFromCart={handleRemoveFromCart} 
-                customerInfo={customerInfo}
-                setCustomerInfo={setCustomerInfo}
-                selectedBonus={selectedBonus}
-                setSelectedBonus={setSelectedBonus}
-                setIsOrderSuccessModalVisible={setIsOrderSuccessModalVisible}
-                setWhatsappUrl={setWhatsappUrl}
-              />
-            </div>
-          </div>
-        </main>
-        
-        <BottomNavBar 
-          activeTab={activeTab}
-          onNavigate={handleNavigate}
-          cartItemCount={totalItems}
-        />
+        <MainLayout />
         
         <ProductDetailModal 
             isVisible={isDetailModalVisible}
@@ -208,15 +215,6 @@ const MainContent: React.FC = () => {
       </div>
     </div>
   );
-};
-
-const App: React.FC = () => {
-    return (
-      <Routes>
-        <Route path="/" element={<MainContent />} />
-        <Route path="/product/:id" element={<MainContent />} />
-      </Routes>
-    );
 };
 
 export default App;

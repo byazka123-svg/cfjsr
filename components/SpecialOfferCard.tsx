@@ -1,14 +1,14 @@
 
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 
 interface SpecialOfferCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onShowDetail: (product: Product) => void;
 }
 
-export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onAddToCart }) => {
+export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onAddToCart, onShowDetail }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -32,8 +32,8 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
   };
 
   return (
-    <Link
-      to={`/product/${product.id}`}
+    <div
+      onClick={() => onShowDetail(product)}
       ref={cardRef}
       className="block bg-gradient-to-br from-green-forest/5 via-stone-50 to-terracotta/5 rounded-2xl shadow-lg p-4 border-2 border-green-forest/20 cursor-pointer animate-shimmer"
     >
@@ -66,6 +66,6 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

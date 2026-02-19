@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import type { Product } from '../types';
-import { ShoppingCartIcon, ClipboardIcon } from './Icons';
+import { ShoppingCartIcon } from './Icons';
 
 interface ProductDetailModalProps {
   isVisible: boolean;
@@ -20,21 +20,10 @@ const formatCurrency = (amount: number) => {
 };
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisible, product, onClose, onAddToCart }) => {
-  const [isCopied, setIsCopied] = useState(false);
-  
   if (!isVisible || !product) return null;
 
   const handleAddToCartClick = () => {
     onAddToCart(product);
-  };
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
-    }, (err) => {
-      console.error('Gagal menyalin tautan: ', err);
-    });
   };
 
   return (
@@ -70,33 +59,22 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisibl
               <p className="text-gray-700 mt-4 text-base leading-relaxed">{product.description}</p>
             </div>
             <div className="mt-auto pt-8">
-               <div className="bg-gray-50 rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                 <div className="flex items-baseline gap-2 flex-shrink-0">
+              <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-between gap-4">
+                <div className="flex items-baseline gap-2">
                   <p className="text-2xl lg:text-3xl font-bold text-green-forest">{formatCurrency(product.price)}</p>
                   {product.originalPrice && (
                     <p className="text-lg lg:text-xl font-medium text-gray-500 line-through">{formatCurrency(product.originalPrice)}</p>
                   )}
-                 </div>
-                 <div className="w-full sm:w-auto flex items-center gap-3">
-                    <button
-                      onClick={handleCopyLink}
-                      className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 text-lg"
-                      aria-label="Salin tautan produk"
-                      disabled={isCopied}
-                    >
-                      <ClipboardIcon className="h-5 w-5"/>
-                      <span>{isCopied ? 'Tersalin!' : 'Salin Link'}</span>
-                    </button>
-                    <button
-                      onClick={handleAddToCartClick}
-                      className="w-full bg-terracotta text-white py-3 px-6 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors flex items-center justify-center gap-2 text-lg"
-                      aria-label={`Tambah ${product.name} ke keranjang`}
-                    >
-                      <ShoppingCartIcon className="h-5 w-5"/>
-                      <span>Tambah</span>
-                    </button>
-                 </div>
-               </div>
+                </div>
+                <button
+                  onClick={handleAddToCartClick}
+                  className="bg-terracotta text-white py-3 px-6 rounded-lg font-semibold hover:bg-terracotta/90 transition-colors flex items-center gap-2 text-lg flex-shrink-0"
+                  aria-label={`Tambah ${product.name} ke keranjang`}
+                >
+                  <ShoppingCartIcon className="h-5 w-5"/>
+                  <span>Tambah</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

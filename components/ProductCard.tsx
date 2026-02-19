@@ -1,15 +1,15 @@
 
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { StarIcon } from './Icons';
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onShowDetail: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onShowDetail }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -33,8 +33,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
   };
 
   return (
-    <Link 
-        to={`/product/${product.id}`}
+    <div 
+        onClick={() => onShowDetail(product)}
         className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 flex flex-col group cursor-pointer"
         ref={cardRef}
         id={`product-${product.id}`}
@@ -69,6 +69,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }
             </button>
             </div>
         </div>
-    </Link>
+    </div>
   );
 };
