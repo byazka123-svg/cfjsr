@@ -19,10 +19,18 @@ export const RamadanPromoBanner: React.FC = () => {
         </div>
         
         {/* Main Offer */}
-        <div className="mt-4">
+        <div className="mt-4 space-y-3">
           <p className="text-2xl font-extrabold text-gray-800 leading-tight">
             Beli 3 Box Wedhang, <span className="text-green-forest">GRATIS</span> Tumbler/Teko Rempah Eksklusif!
           </p>
+          <div className="flex items-center gap-2 bg-terracotta/5 border border-terracotta/10 p-3 rounded-xl">
+            <div className="bg-terracotta p-1.5 rounded-lg shrink-0">
+              <GiftIcon className="h-4 w-4 text-white" />
+            </div>
+            <p className="text-sm font-bold text-gray-700">
+              <span className="text-terracotta">BUNDLING HEMAT:</span> 2 Paket Buket Hamper hanya <span className="text-terracotta">Rp 350.000</span>
+            </p>
+          </div>
         </div>
 
         {/* Promo Period */}

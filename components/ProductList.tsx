@@ -19,9 +19,9 @@ const categoryDescriptions: Record<string, string> = {
 const categoryOrder = ['Snack Plizstop', 'Wedhang Cafe JSR'];
 
 export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart, onShowDetail }) => {
-  // Find the special offer product
-  const specialOfferProduct = products.find(p => p.isSpecialOffer);
-  // Filter out the special offer product for normal listing
+  // Find all special offer products
+  const specialOfferProducts = products.filter(p => p.isSpecialOffer);
+  // Filter out the special offer products for normal listing
   const regularProducts = products.filter(p => !p.isSpecialOffer);
 
   const groupedProducts = regularProducts.reduce((acc, product) => {
@@ -42,17 +42,20 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
 
   return (
     <div className="space-y-12">
-      {/* Render the special offer card at the top */}
-      {specialOfferProduct && (
+      {/* Render the special offer cards at the top */}
+      {specialOfferProducts.length > 0 && (
         <section>
           <h2 className="text-3xl font-bold text-gray-800">Penawaran Spesial</h2>
           <p className="mt-2 text-gray-600">Jangan lewatkan paket spesial Ramadhan & Lebaran kami!</p>
-          <div className="mt-6">
-            <SpecialOfferCard 
-              product={specialOfferProduct}
-              onAddToCart={onAddToCart}
-              onShowDetail={onShowDetail}
-            />
+          <div className="mt-6 space-y-6">
+            {specialOfferProducts.map(product => (
+              <SpecialOfferCard 
+                key={product.id}
+                product={product}
+                onAddToCart={onAddToCart}
+                onShowDetail={onShowDetail}
+              />
+            ))}
           </div>
         </section>
       )}

@@ -14,6 +14,17 @@ export const products: Product[] = [
     isSpecialOffer: true,
   },
   {
+    id: 11,
+    name: 'Paket Bundling 2 Buket Hamper',
+    description: 'Lebih hemat! Dapatkan 2 Paket Buket Hamper Ramadhan & Lebaran hanya dengan 350rb.',
+    price: 350000,
+    originalPrice: 370000,
+    image: 'https://ik.imagekit.io/hrctvvb3m/Untitled%20design%20(15).png',
+    category: 'Paket Spesial',
+    tag: 'Hemat 20rb',
+    isSpecialOffer: true,
+  },
+  {
     id: 1,
     name: 'Snack Plizstop Pedas',
     description: 'Perpaduan gurih dengan sensasi pedas yang bikin nagih.',
