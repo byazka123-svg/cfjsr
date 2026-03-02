@@ -47,7 +47,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
         <section>
           <h2 className="text-3xl font-bold text-gray-800">Penawaran Spesial</h2>
           <p className="mt-2 text-gray-600">Jangan lewatkan paket spesial Ramadhan & Lebaran kami!</p>
-          <div className="mt-6 space-y-6">
+          <div className="mt-6 grid grid-cols-2 lg:grid-cols-1 gap-4">
             {specialOfferProducts.map(product => (
               <SpecialOfferCard 
                 key={product.id}
