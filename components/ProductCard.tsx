@@ -51,6 +51,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
             )}
             <h3 className="text-lg font-bold text-gray-800">{product.name}</h3>
             <p className="text-gray-600 text-sm mt-1 flex-grow">{product.description}</p>
+            
+            {product.category === 'Wedhang Cafe JSR' && (
+              <div className="mt-2 bg-amber-50 border border-amber-200 rounded-md p-2">
+                <p className="text-[10px] font-bold text-amber-700 uppercase leading-tight">
+                  Ready kembali setelah lebaran
+                </p>
+              </div>
+            )}
+
             <div className="mt-4 flex justify-between items-center">
             <div className="flex items-baseline gap-1.5">
                 <p className="text-lg font-bold text-green-forest">{formatCurrency(product.price)}</p>
@@ -60,12 +69,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
             </div>
             <button
                 onClick={handleAddToCartClick}
-                className="bg-green-forest hover:bg-green-forest/90 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors flex-shrink-0"
-                aria-label={`Add ${product.name} to cart`}
+                className={`${product.category === 'Wedhang Cafe JSR' ? 'bg-amber-600 hover:bg-amber-700' : 'bg-green-forest hover:bg-green-forest/90'} text-white rounded-full ${product.category === 'Wedhang Cafe JSR' ? 'px-3 py-1 h-auto w-auto text-[10px] font-bold uppercase' : 'w-9 h-9'} flex items-center justify-center transition-colors flex-shrink-0`}
+                aria-label={product.category === 'Wedhang Cafe JSR' ? `Preorder ${product.name}` : `Add ${product.name} to cart`}
             >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                </svg>
+                {product.category === 'Wedhang Cafe JSR' ? (
+                  <span>Preorder</span>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                  </svg>
+                )}
             </button>
             </div>
         </div>
