@@ -148,14 +148,17 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-stone-100 font-sans pb-24 lg:pb-0 max-w-7xl mx-auto shadow-2xl">
         <Header />
         
+        <Hero />
+        
+        <Ribbon />
+        
+        <div ref={promoRef}>
+          <PromoBanner />
+        </div>
+
         <main className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
             <div className="lg:col-span-2">
-              <Hero />
-              <Ribbon />
-              <div ref={promoRef}>
-                <PromoBanner />
-              </div>
               <div className="mt-8">
                 <ProductList 
                   products={products} 
