@@ -16,12 +16,12 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, onConfirm, onClose, tit
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start sm:items-center p-4 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-white rounded-lg shadow-xl p-6 sm:p-8 text-center max-w-sm w-full relative transform transition-all" role="document">
+      <div className="bg-white rounded-lg shadow-xl p-6 sm:p-8 text-center max-w-sm w-full relative transform transition-all my-auto" role="document">
         <button 
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"

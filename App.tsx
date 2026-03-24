@@ -143,51 +143,47 @@ const App: React.FC = () => {
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const MainLayout: React.FC = () => (
-    <main className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
-        <div className="lg:col-span-2">
-          <Hero />
-          <Ribbon />
-          <div ref={promoRef}>
-            <PromoBanner />
-          </div>
-          <div className="mt-8">
-            <ProductList 
-              products={products} 
-              onAddToCart={handleAddToCart}
-              onShowDetail={handleShowDetail}
-            />
-          </div>
-        </div>
-        <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
-          <OrderSidebar 
-            items={cartItems} 
-            onUpdateQuantity={handleUpdateQuantity} 
-            onRemoveFromCart={handleRemoveFromCart} 
-            customerInfo={customerInfo}
-            setCustomerInfo={setCustomerInfo}
-            selectedBonus={selectedBonus}
-            setSelectedBonus={setSelectedBonus}
-            setIsOrderSuccessModalVisible={setIsOrderSuccessModalVisible}
-            setWhatsappUrl={setWhatsappUrl}
-          />
-        </div>
-      </div>
-      <BottomNavBar 
-        activeTab={activeTab}
-        onNavigate={handleNavigate}
-        cartItemCount={totalItems}
-      />
-    </main>
-  );
-
   return (
     <div className="min-h-screen bg-stone-200 font-sans">
       <div className="min-h-screen bg-stone-100 font-sans pb-24 lg:pb-0 max-w-7xl mx-auto shadow-2xl">
         <Header />
         
-        <MainLayout />
+        <main className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
+            <div className="lg:col-span-2">
+              <Hero />
+              <Ribbon />
+              <div ref={promoRef}>
+                <PromoBanner />
+              </div>
+              <div className="mt-8">
+                <ProductList 
+                  products={products} 
+                  onAddToCart={handleAddToCart}
+                  onShowDetail={handleShowDetail}
+                />
+              </div>
+            </div>
+            <div className="lg:col-span-1 mt-8 lg:mt-0" ref={sidebarRef}>
+              <OrderSidebar 
+                items={cartItems} 
+                onUpdateQuantity={handleUpdateQuantity} 
+                onRemoveFromCart={handleRemoveFromCart} 
+                customerInfo={customerInfo}
+                setCustomerInfo={setCustomerInfo}
+                selectedBonus={selectedBonus}
+                setSelectedBonus={setSelectedBonus}
+                setIsOrderSuccessModalVisible={setIsOrderSuccessModalVisible}
+                setWhatsappUrl={setWhatsappUrl}
+              />
+            </div>
+          </div>
+          <BottomNavBar 
+            activeTab={activeTab}
+            onNavigate={handleNavigate}
+            cartItemCount={totalItems}
+          />
+        </main>
         
         <ProductDetailModal 
             isVisible={isDetailModalVisible}

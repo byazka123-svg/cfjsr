@@ -28,14 +28,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisibl
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-60 z-40 flex justify-center items-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-60 z-40 flex justify-center items-start sm:items-center p-4 overflow-y-auto"
       aria-labelledby="product-detail-modal-title"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-2xl shadow-xl w-full max-w-4xl relative transform transition-all p-0 overflow-hidden"
+        className="bg-white rounded-2xl shadow-xl w-full max-w-4xl relative transform transition-all p-0 overflow-hidden my-auto"
         onClick={e => e.stopPropagation()} // Prevent closing modal when clicking inside
       >
         <button 

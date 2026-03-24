@@ -63,12 +63,12 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-start sm:items-center p-4 overflow-y-auto"
       aria-labelledby="add-to-cart-modal-title"
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md relative transform transition-all p-6 text-center">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md relative transform transition-all p-6 text-center my-auto">
         <button 
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
