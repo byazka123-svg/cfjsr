@@ -46,7 +46,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
       {specialOfferProducts.length > 0 && (
         <section>
           <h2 className="text-3xl font-bold text-gray-800">Penawaran Spesial</h2>
-          <p className="mt-2 text-gray-600">Jangan lewatkan paket spesial Ramadhan & Lebaran kami!</p>
+          <p className="mt-2 text-gray-600">Jangan lewatkan paket spesial kami!</p>
           <div className="mt-6 grid grid-cols-2 lg:grid-cols-1 gap-4">
             {specialOfferProducts.map(product => (
               <SpecialOfferCard 

@@ -57,20 +57,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisibl
               <span className="bg-green-forest/10 text-green-forest text-sm font-medium px-3 py-1 rounded-full">{product.tag}</span>
               <h1 id="product-detail-modal-title" className="text-3xl lg:text-4xl font-extrabold text-gray-900 mt-3">{product.name}</h1>
               <p className="text-gray-700 mt-4 text-base leading-relaxed">{product.description}</p>
-              
-              {product.category === 'Wedhang Cafe JSR' && (
-                <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center gap-3">
-                  <div className="bg-amber-100 p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-amber-800 uppercase tracking-wide">Status: Preorder</p>
-                    <p className="text-xs text-amber-700 font-medium">Ready kembali setelah lebaran</p>
-                  </div>
-                </div>
-              )}
             </div>
             <div className="mt-auto pt-8">
               <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-between gap-4">
@@ -82,17 +68,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisibl
                 </div>
                 <button
                   onClick={handleAddToCartClick}
-                  className={`${product.category === 'Wedhang Cafe JSR' ? 'bg-amber-600 hover:bg-amber-700' : 'bg-terracotta hover:bg-terracotta/90'} text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center gap-2 text-lg flex-shrink-0`}
-                  aria-label={product.category === 'Wedhang Cafe JSR' ? `Preorder ${product.name}` : `Tambah ${product.name} ke keranjang`}
+                  className="bg-terracotta hover:bg-terracotta/90 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center gap-2 text-lg flex-shrink-0"
+                  aria-label={`Tambah ${product.name} ke keranjang`}
                 >
-                  {product.category === 'Wedhang Cafe JSR' ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  ) : (
-                    <ShoppingCartIcon className="h-5 w-5"/>
-                  )}
-                  <span>{product.category === 'Wedhang Cafe JSR' ? 'Preorder' : 'Tambah'}</span>
+                  <ShoppingCartIcon className="h-5 w-5"/>
+                  <span>Tambah</span>
                 </button>
               </div>
             </div>

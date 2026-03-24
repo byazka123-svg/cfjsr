@@ -4,7 +4,7 @@ import type { Product } from './types';
 export const products: Product[] = [
   {
     id: 10,
-    name: 'Paket Buket Hamper Ramadhan & Lebaran',
+    name: 'Paket Buket Hamper',
     description: 'Terdiri dari 10 wedhang, termasuk box, kartu ucapan, dan dekorasi cantik untuk orang tersayang.',
     price: 185000,
     originalPrice: 200000,
@@ -16,7 +16,7 @@ export const products: Product[] = [
   {
     id: 11,
     name: 'Paket Bundling 2 Buket Hamper',
-    description: 'Lebih hemat! Dapatkan 2 Paket Buket Hamper Ramadhan & Lebaran hanya dengan 350rb.',
+    description: 'Lebih hemat! Dapatkan 2 Paket Buket Hamper hanya dengan 350rb.',
     price: 350000,
     originalPrice: 370000,
     image: 'https://ik.imagekit.io/hrctvvb3m/Untitled%20design%20(15).png',

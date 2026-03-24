@@ -2,7 +2,7 @@
 import React from 'react';
 import { GiftIcon, DeliveryIcon, CheckBadgeIcon } from './Icons';
 
-export const RamadanPromoBanner: React.FC = () => {
+export const PromoBanner: React.FC = () => {
   return (
     <div 
       className="bg-green-forest/5 border border-green-forest/20 rounded-2xl my-8 shadow-sm overflow-hidden"
@@ -14,7 +14,7 @@ export const RamadanPromoBanner: React.FC = () => {
             <GiftIcon className="h-5 w-5 text-white" />
           </div>
           <h3 className="text-lg font-bold text-green-forest tracking-tight">
-            Promo Spesial Ramadhan
+            Promo Spesial
           </h3>
         </div>
         
@@ -36,7 +36,7 @@ export const RamadanPromoBanner: React.FC = () => {
         {/* Promo Period */}
         <div className="mt-4 bg-terracotta/10 border border-terracotta/20 text-terracotta rounded-lg px-3 py-1.5 text-center w-fit">
           <p className="text-xs font-bold uppercase tracking-wider">
-            Periode: <span className="font-black">19 FEB - 10 MARET 2026</span>
+            Periode: <span className="font-black">22 - 30 MARET 2026</span>
           </p>
         </div>
       </div>

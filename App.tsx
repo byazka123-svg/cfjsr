@@ -8,7 +8,7 @@ import type { Product, CartItem, CustomerInfo } from './types';
 import { Modal } from './components/Modal';
 import { AddToCartModal } from './components/AddToCartModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
-import { RamadanPromoBanner } from './components/RamadanPromoBanner';
+import { PromoBanner } from './components/PromoBanner';
 import { BottomNavBar } from './components/BottomNavBar';
 import { Hero } from './components/Hero';
 import { Ribbon } from './components/Ribbon';
@@ -150,7 +150,7 @@ const App: React.FC = () => {
           <Hero />
           <Ribbon />
           <div ref={promoRef}>
-            <RamadanPromoBanner />
+            <PromoBanner />
           </div>
           <div className="mt-8">
             <ProductList 
