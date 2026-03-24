@@ -2,7 +2,7 @@
 import React from 'react';
 import { GiftIcon, DeliveryIcon, CheckBadgeIcon } from './Icons';
 
-export const PromoBanner: React.FC = () => {
+export const PromoBanner: React.FC = React.memo(() => {
   return (
     <div 
       className="bg-green-forest/5 border border-green-forest/20 rounded-2xl my-8 shadow-sm overflow-hidden"
@@ -56,4 +56,4 @@ export const PromoBanner: React.FC = () => {
       </div>
     </div>
   );
-};
+});

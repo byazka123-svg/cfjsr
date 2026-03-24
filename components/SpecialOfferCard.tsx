@@ -8,7 +8,7 @@ interface SpecialOfferCardProps {
   onShowDetail: (product: Product) => void;
 }
 
-export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onAddToCart, onShowDetail }) => {
+export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = React.memo(({ product, onAddToCart, onShowDetail }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -68,4 +68,4 @@ export const SpecialOfferCard: React.FC<SpecialOfferCardProps> = ({ product, onA
       </div>
     </div>
   );
-};
+});

@@ -1,56 +1,27 @@
 
 import React from 'react';
-import { Search, ShoppingBag, User } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 
-interface HeaderProps {
-  cartCount: number;
-  onCartClick: () => void;
-}
-
-export const Header: React.FC<HeaderProps> = ({ cartCount, onCartClick }) => {
+export const Header: React.FC = React.memo(() => {
   return (
-    <header className="flex items-center justify-between py-6 mb-8 sticky top-0 bg-[#FDFCF9]/80 backdrop-blur-md z-30">
-      <nav className="hidden md:flex items-center gap-8">
-        {['Special Offers', 'Snacks', 'Wedhang', 'New Arrivals'].map((item) => (
+    <header className="bg-white shadow-sm sticky top-0 z-10">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center py-2">
+          <div className="flex items-center">
+            <img src="https://ik.imagekit.io/hrctvvb3m/Untitled%20design.jpg" alt="Cafe JSR Logo" className="h-12 w-12 rounded-full object-cover mr-3" />
+            <h1 className="text-xl font-bold text-gray-800">Cafe JSR Store</h1>
+          </div>
           <a 
-            key={item} 
-            href="#" 
-            className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-              item === 'Special Offers' ? 'text-stone-900 border-b-2 border-green-forest pb-1' : 'text-stone-400 hover:text-stone-900'
-            }`}
+            href="https://wa.me/6281398898131" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center space-x-2 text-gray-600 hover:text-green-forest"
           >
-            {item}
+            <WhatsAppIcon className="h-5 w-5"/>
+            <span className="text-sm font-medium">Hubungi Kami</span>
           </a>
-        ))}
-      </nav>
-
-      <div className="flex items-center gap-4 flex-1 max-w-md mx-8">
-        <div className="relative w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-          <input 
-            type="text" 
-            placeholder="Cari resep sehat..." 
-            className="w-full bg-stone-100 border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-green-forest outline-none transition-all"
-          />
         </div>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <button 
-          onClick={onCartClick}
-          className="relative p-2.5 bg-stone-100 rounded-full text-stone-900 hover:bg-stone-200 transition-all"
-        >
-          <ShoppingBag className="w-5 h-5" />
-          {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-terracotta text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#FDFCF9]">
-              {cartCount}
-            </span>
-          )}
-        </button>
-        <button className="p-2.5 bg-stone-100 rounded-full text-stone-900 hover:bg-stone-200 transition-all">
-          <User className="w-5 h-5" />
-        </button>
       </div>
     </header>
   );
-};
+});

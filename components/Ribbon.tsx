@@ -21,7 +21,7 @@ const features = [
   },
 ];
 
-export const Ribbon: React.FC = () => {
+export const Ribbon: React.FC = React.memo(() => {
   return (
     <div className="bg-white rounded-xl shadow-sm p-4 mt-8">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -34,4 +34,4 @@ export const Ribbon: React.FC = () => {
       </div>
     </div>
   );
-};
+});

@@ -18,7 +18,7 @@ const categoryDescriptions: Record<string, string> = {
 
 const categoryOrder = ['Snack Plizstop', 'Wedhang Cafe JSR'];
 
-export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart, onShowDetail }) => {
+export const ProductList: React.FC<ProductListProps> = React.memo(({ products, onAddToCart, onShowDetail }) => {
   // Find all special offer products
   const specialOfferProducts = products.filter(p => p.isSpecialOffer);
   // Filter out the special offer products for normal listing
@@ -96,4 +96,4 @@ export const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart,
       })}
     </div>
   );
-};
+});

@@ -19,7 +19,7 @@ const formatCurrency = (amount: number) => {
     }).format(amount).replace('IDR', 'Rp');
 };
 
-export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisible, product, onClose, onAddToCart }) => {
+export const ProductDetailModal: React.FC<ProductDetailModalProps> = React.memo(({ isVisible, product, onClose, onAddToCart }) => {
   if (!isVisible || !product) return null;
 
   const handleAddToCartClick = () => {
@@ -81,4 +81,4 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ isVisibl
       </div>
     </div>
   );
-};
+});

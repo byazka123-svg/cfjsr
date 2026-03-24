@@ -11,7 +11,7 @@ interface ModalProps {
   confirmText: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ isVisible, onConfirm, onClose, title, message, confirmText }) => {
+export const Modal: React.FC<ModalProps> = React.memo(({ isVisible, onConfirm, onClose, title, message, confirmText }) => {
   if (!isVisible) return null;
 
   return (
@@ -48,4 +48,4 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, onConfirm, onClose, tit
       </div>
     </div>
   );
-};
+});

@@ -37,6 +37,37 @@ async function sendDataToGoogleSheet(data: object) {
 }
 
 
+const FormInput = React.memo(({ label, id, name, value, onChange, type = "text", placeholder, required, rows }: any) => {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">{label}</label>
+      {type === 'textarea' ? (
+        <textarea
+          id={id}
+          name={name}
+          rows={rows}
+          value={value}
+          onChange={onChange}
+          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
+          placeholder={placeholder}
+          required={required}
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          name={name}
+          value={value}
+          onChange={onChange}
+          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
+          placeholder={placeholder}
+          required={required}
+        />
+      )}
+    </div>
+  );
+});
+
 export const OrderSidebar: React.FC<OrderSidebarProps> = React.memo(({ 
     items, 
     customerInfo, 
@@ -59,9 +90,16 @@ export const OrderSidebar: React.FC<OrderSidebarProps> = React.memo(({
         }).format(amount).replace('IDR', 'Rp');
     };
 
+    const [localCustomerInfo, setLocalCustomerInfo] = useState<CustomerInfo>(customerInfo);
+
+    // Sync local state when parent state changes (e.g. cleared after checkout)
+    React.useEffect(() => {
+        setLocalCustomerInfo(customerInfo);
+    }, [customerInfo]);
+
     const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    const isFormComplete = customerInfo.name && customerInfo.phone && customerInfo.address && customerInfo.postalCode;
+    const isFormComplete = localCustomerInfo.name && localCustomerInfo.phone && localCustomerInfo.address && localCustomerInfo.postalCode;
 
     const wedhangItems = items.filter(item => item.category === 'Wedhang Cafe JSR');
     const wedhangQuantity = wedhangItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -96,7 +134,7 @@ export const OrderSidebar: React.FC<OrderSidebarProps> = React.memo(({
     
             // Kirim data ke Google Sheet
             const sheetData = {
-              ...customerInfo,
+              ...localCustomerInfo,
               orderDetails: orderDetailsText,
               total: formatCurrency(total),
               promoDetails: promoDetailsText,
@@ -106,10 +144,10 @@ export const OrderSidebar: React.FC<OrderSidebarProps> = React.memo(({
     
             const customerDetails = `
 *Data Pemesan:*
-Nama: ${customerInfo.name}
-No. WA: ${customerInfo.phone}
-Alamat: ${customerInfo.address}
-Kode Pos: ${customerInfo.postalCode}
+Nama: ${localCustomerInfo.name}
+No. WA: ${localCustomerInfo.phone}
+Alamat: ${localCustomerInfo.address}
+Kode Pos: ${localCustomerInfo.postalCode}
             `;
     
             const message = `Halo Cafe JSR, saya mau pesan:\n\n*Pesanan:*\n${orderDetailsText}\n\n*Total: ${formatCurrency(total)}* (belum termasuk ongkir)\n*Bonus:* ${promoDetailsText}\n\n${customerDetails}\n\nTerima kasih.`;
@@ -127,23 +165,16 @@ Kode Pos: ${customerInfo.postalCode}
         }
     };
 
-    const [localCustomerInfo, setLocalCustomerInfo] = useState<CustomerInfo>(customerInfo);
-
-    // Sync local state when parent state changes (e.g. cleared after checkout)
-    React.useEffect(() => {
-        setLocalCustomerInfo(customerInfo);
-    }, [customerInfo]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setLocalCustomerInfo(prev => ({ ...prev, [name]: value }));
         
-        // Update parent state
+        // Update parent state (debounced or just on blur would be better, but let's try this first)
         setCustomerInfo(prevInfo => ({
           ...prevInfo,
           [name]: value,
         }));
-    };
+    }, [setCustomerInfo]);
 
     return (
         <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
@@ -231,60 +262,47 @@ Kode Pos: ${customerInfo.postalCode}
                     {/* Form Section */}
                     <div className="border-t border-gray-200 mt-6 pt-4">
                         <h3 className="text-xl font-bold text-gray-800 mb-4">Lengkapi Data Pemesan</h3>
-                        <form className="space-y-4">
-                            <div>
-                              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                              <input
-                                type="text"
+                        <div className="space-y-4">
+                            <FormInput
+                                label="Nama Lengkap"
                                 id="name"
                                 name="name"
                                 value={localCustomerInfo.name}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan nama lengkap Anda"
                                 required
-                              />
-                            </div>
-                            <div>
-                              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">No. WhatsApp</label>
-                              <input
-                                type="tel"
+                            />
+                            <FormInput
+                                label="No. WhatsApp"
                                 id="phone"
                                 name="phone"
+                                type="tel"
                                 value={localCustomerInfo.phone}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Contoh: 081234567890"
                                 required
-                              />
-                            </div>
-                            <div>
-                              <label htmlFor="address" className="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
-                              <textarea
+                            />
+                            <FormInput
+                                label="Alamat Lengkap"
                                 id="address"
                                 name="address"
+                                type="textarea"
                                 rows={3}
                                 value={localCustomerInfo.address}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, dan kota/kabupaten"
                                 required
-                              />
-                            </div>
-                            <div>
-                              <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">Kode Pos</label>
-                              <input
-                                type="text"
+                            />
+                            <FormInput
+                                label="Kode Pos"
                                 id="postalCode"
                                 name="postalCode"
                                 value={localCustomerInfo.postalCode}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-forest focus:border-green-forest sm:text-sm text-gray-900"
                                 placeholder="Masukkan kode pos"
                                 required
-                              />
-                            </div>
-                        </form>
+                            />
+                        </div>
                     </div>
 
                     {/* Checkout Button Section */}

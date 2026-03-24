@@ -14,7 +14,7 @@ const navItems = [
   { id: 'cart', label: 'Keranjang', icon: ShoppingCartIcon },
 ];
 
-export const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeTab, onNavigate, cartItemCount }) => {
+export const BottomNavBar: React.FC<BottomNavBarProps> = React.memo(({ activeTab, onNavigate, cartItemCount }) => {
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-20 lg:hidden">
       <div className="flex justify-around items-center h-16">
@@ -45,4 +45,4 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeTab, onNavigat
       </div>
     </div>
   );
-};
+});

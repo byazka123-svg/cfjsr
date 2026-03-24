@@ -11,7 +11,7 @@ interface BenefitTagsProps {
   onBenefitClick: (productId: number) => void;
 }
 
-export const BenefitTags: React.FC<BenefitTagsProps> = ({ benefits, onBenefitClick }) => {
+export const BenefitTags: React.FC<BenefitTagsProps> = React.memo(({ benefits, onBenefitClick }) => {
   if (benefits.length === 0) {
     return null;
   }
@@ -32,4 +32,4 @@ export const BenefitTags: React.FC<BenefitTagsProps> = ({ benefits, onBenefitCli
       </div>
     </div>
   );
-};
+});

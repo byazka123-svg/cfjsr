@@ -11,7 +11,7 @@ interface AddToCartModalProps {
   cartItems: CartItem[];
 }
 
-export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, product, onClose, onCheckout, cartItems }) => {
+export const AddToCartModal: React.FC<AddToCartModalProps> = React.memo(({ isVisible, product, onClose, onCheckout, cartItems }) => {
   if (!isVisible || !product) return null;
 
   const formatCurrency = (amount: number) => {
@@ -68,7 +68,7 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md relative transform transition-all p-6 text-center my-auto">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-md relative transform transition-all p-6 text-center my-auto">
         <button 
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
@@ -114,4 +114,4 @@ export const AddToCartModal: React.FC<AddToCartModalProps> = ({ isVisible, produ
       </div>
     </div>
   );
-};
+});

@@ -9,7 +9,7 @@ interface ProductCardProps {
   onShowDetail: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onShowDetail }) => {
+export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onAddToCart, onShowDetail }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (amount: number) => {
@@ -72,4 +72,4 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
         </div>
     </div>
   );
-};
+});
